@@ -193,7 +193,7 @@ public class ProductCode {
         /*
          * TODO #11 Реализуйте метод getUpdateQuery
          */
-        String update =  "update PRODUCT_CODE set prod_code = ?, discount_code = ?, description = ? where prod_code = ?";
+        String update =  "update PRODUCT_CODE set discount_code = ?, description = ? where prod_code = ?";
             return connection.prepareStatement(update);
     }
     /**
@@ -232,13 +232,12 @@ public class ProductCode {
         PreparedStatement statement;
         if (products.contains(this)) {
             statement = getUpdateQuery(connection);
-            statement.setString(4, code);
+            statement.setString(3, code);
         } else {
             statement = getInsertQuery(connection);
         }
-        statement.setString(1, code);
-        statement.setString(2, String.valueOf(discountCode));
-        statement.setString(3, description);
+        statement.setString(1, String.valueOf(discountCode));
+        statement.setString(2, description);
         statement.execute();
     }
     /**
