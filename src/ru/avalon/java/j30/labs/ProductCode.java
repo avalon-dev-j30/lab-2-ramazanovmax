@@ -232,12 +232,15 @@ public class ProductCode {
         PreparedStatement statement;
         if (products.contains(this)) {
             statement = getUpdateQuery(connection);
+            statement.setString(1, String.valueOf(discountCode));
+            statement.setString(2, description);
             statement.setString(3, code);
         } else {
             statement = getInsertQuery(connection);
+            statement.setString(1, code);
+            statement.setString(2, String.valueOf(discountCode));
+            statement.setString(3, description);
         }
-        statement.setString(1, String.valueOf(discountCode));
-        statement.setString(2, description);
         statement.execute();
     }
     /**
