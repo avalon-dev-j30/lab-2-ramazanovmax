@@ -223,8 +223,7 @@ public class ProductCode {
      * 
      * @param connection действительное соединение с базой данных
      */
-    public void save(Connection connection) throws SQLException {
-        /*
+    public void save(Connection connection) throws SQLException {/*
          * TODO #13 Реализуйте метод save
          */
         
@@ -232,13 +231,17 @@ public class ProductCode {
         PreparedStatement statement;
         if (products.contains(this)) {
             statement = getUpdateQuery(connection);
+            statement.setString(1, String.valueOf(discountCode));
+            statement.setString(2, description);
             statement.setString(3, code);
         } else {
             statement = getInsertQuery(connection);
+            statement.setString(1, code);
+            statement.setString(2, String.valueOf(discountCode));
+            statement.setString(3, description);
         }
-        statement.setString(1, String.valueOf(discountCode));
-        statement.setString(2, description);
         statement.execute();
+    
     }
     /**
      * Возвращает все записи таблицы PRODUCT_CODE в виде коллекции объектов
